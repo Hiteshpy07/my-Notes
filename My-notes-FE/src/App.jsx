@@ -31,6 +31,14 @@ function App() {
   })
   
   //delete option
+  const handledelete=(e, id)=>{
+    e.preventDefault();
+    const filename=id;
+    axios.delete(`http://localhost:3000/delete-note/${filename}`)
+    .then((res)=>{
+      console.log(`${filename} is deleted.`)
+    })
+  }
   //edit option 
 
   return (
@@ -50,7 +58,9 @@ function App() {
         <div className='text-white  h-[100px] bg-slate-700 rounded-xl ml-3 display:  p-2 flex-wrap '>{e}
         <div className='flex text-red-600 mt-10 justify-between'>
         <MdEditDocument className='text-white cursor-pointer'/>
-        <MdDelete className='cursor-pointer '  onClick={()=>handledelete()}/>
+        <MdDelete className='cursor-pointer '  onClick={(x)=>handledelete(x, e)}/>
+          {/* i face a issue here was not getting the data with ddelte button , the fix is https://gemini.google.com/app/ac31e83e0c9378c1?hl=en-IN */}
+          
         </div>
         </div>
         </div>
@@ -60,6 +70,6 @@ function App() {
     </div>
     </>
   )
-}
 
+}
 export default App

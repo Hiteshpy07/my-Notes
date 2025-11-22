@@ -32,9 +32,20 @@ app.post("/create-note", (req, res) => {
     fs.readdir('./notes', function(err,files){
         res.json({files:files})
     })
-}
 
-)
+    app.delete('/delete-note/:filename',(req,res)=>{
+      const filename=req.params.filename;
+      console.log(`${filename} is to be deleted`)
+      fs.unlink(`./notes/${filename}`, function(err){
+        if (err){
+            console.log(err);
+        }else{
+          console.log("File deleted successfully");
+        }})
+}
+    )
+
+  })
 
 
 
