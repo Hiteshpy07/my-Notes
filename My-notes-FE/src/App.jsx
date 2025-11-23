@@ -12,7 +12,7 @@ function App() {
   return (
     <>
      <Routes>
-        <Route path="/edit-note" element={<Edit/>} />
+        <Route path="/edit-note/:filename12" element={<Edit/>} />
         <Route path="/" element={<Home/>} />
 
       </Routes>

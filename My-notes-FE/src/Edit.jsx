@@ -1,4 +1,6 @@
-import React, { useState } from 'react';
+import React, { use, useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
+import axios from 'axios';
 
 // Inline SVG for the Home Icon (Retained for visual completeness, but navigation removed)
 const HomeIcon = (props) => (
@@ -14,16 +16,25 @@ const SaveIcon = (props) => (
     </svg>
 );
 
+
+   
 // Renamed and cleaned component as requested
 const Edit = () => {
+     let {filename12} = useParams(); 
+       useEffect(() => { 
+        console.log("Editing note with filename from URL:", filename12);
+         }, [filename12]);
+        //  used this param wla feature first time read more aboyt it in https://chatgpt.com/share/6922ae05-ec38-8009-9014-401e961b8f34
+
+
     // Placeholder values for a clean frontend demonstration
     const filename = 'note-to-edit-123.txt'; 
-    const initialTitle = 'My Draft Note Title';
-    const initialBody = 'This is the body content of the note. It is pre-filled for editing.';
+    // const initialTitle = 'My Draft Note Title';
+    // const initialBody = 'This is the body content of the note. It is pre-filled for editing.';
 
     // State initialized with placeholder content
-    const [newTitle, setNewTitle] = useState(initialTitle);
-    const [newBody, setNewBody] = useState(initialBody);
+    const [newTitle, setNewTitle] = useState('');
+    const [newBody, setNewBody] = useState('');
     
     // Simplified submission handler (no requests or navigation)
     const handleUpdate = (e) => {
@@ -34,7 +45,18 @@ const Edit = () => {
         console.log("New Body:", newBody);
         // You can integrate your actual API call here later.
     }
+    const handleeditsub=(e)=>{
+        e.preventDefault();
+        axios.post("http://localhost:3000/updatenote",{
+            oldfilename:filename12,
+            newtitle:newTitle,
+            newbody:newBody
+        })
+        console.log("Edit submission clicked");
+    }
     
+      
+
     return (
         <div className="min-h-screen bg-black p-4 md:p-8">
             <header className="flex items-center justify-between mb-8">
@@ -57,7 +79,7 @@ const Edit = () => {
                         <input 
                             id="current-id"
                             type="text"
-                            value={filename}
+                            value={filename12}
                             readOnly
                             className='w-full h-[40px] rounded-lg p-3 text-gray-300 bg-slate-700 cursor-not-allowed text-xs md:text-sm font-mono'
                             title="Unique ID for the file on the server."
@@ -96,6 +118,7 @@ const Edit = () => {
                                    font-bold text-lg tracking-wider transition-all duration-300 
                                    hover:bg-blue-700 shadow-xl hover:shadow-blue-500/50 focus:outline-none focus:ring-4 focus:ring-blue-500/50' 
                         type='submit'
+                        onClick={handleeditsub}
                     >
                         <SaveIcon className='mr-2 w-5 h-5' /> Submit Changes
                     </button>

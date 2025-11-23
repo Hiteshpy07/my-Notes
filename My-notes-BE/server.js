@@ -33,6 +33,13 @@ app.post("/create-note", (req, res) => {
         res.json({files:files})
     })
 
+    app.post('/updatenote',(req,res)=>{
+      const oldtitle=req.body.oldfilename;
+      const newtitle=req.body.newtitle;
+      const newbody=req.body.newbody;
+      console.log(oldtitle,newtitle,newbody)
+    })
+
     app.delete('/delete-note/:filename',(req,res)=>{
       const filename=req.params.filename;
       console.log(`${filename} is to be deleted`)

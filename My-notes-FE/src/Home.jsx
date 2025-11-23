@@ -49,6 +49,8 @@ function Home() {
     // need to create a edit page , and do it through react-router-dom , add the whole edit functionality after reading this 
     //  https://chatgpt.com/share/69214cc3-8740-8009-acdd-5361dd6f56d8
 
+    //all aout th edit feature here https://gemini.google.com/app/df7247b82e4f0b66?hl=en-IN
+    //edit button all working , bus from end se updated dat bacnenk ta pahunch nhi rha , 404 error , but the urk is same , just try one more
 
   }
 
@@ -69,7 +71,7 @@ function Home() {
         <div key={e} className='overflow-x-auto'> 
         <div className='text-white  h-[100px] bg-slate-700 rounded-xl ml-3 display:  p-2 flex-wrap '>{e}
         <div className='flex text-red-600 mt-10 justify-between'>
-          <Link to="/edit-note"><MdEditDocument className='text-white cursor-pointer ' onClick={(y)=>handleedit(y,e)}/></Link>
+          <Link to={`/edit-note/${encodeURIComponent(e)}`}><MdEditDocument className='text-white cursor-pointer ' onClick={(y)=>handleedit(y,e)}/></Link>
         {/* <MdEditDocument className='text-white cursor-pointer ' onClick={(y)=>handleedit(y,e)}/> */}
         <MdDelete className='cursor-pointer '  onClick={(x)=>handledelete(x, e)}/>
           {/* i face a issue here was not getting the data with ddelte button , the fix is https://gemini.google.com/app/ac31e83e0c9378c1?hl=en-IN */}
